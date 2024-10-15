@@ -1,0 +1,8 @@
+# Ignore virtual environment
+venv/
+myenv/  
+
+__pycache__/
+*.py[cod]
+.DS_Store
+.vscode/

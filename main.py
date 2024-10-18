@@ -13,15 +13,18 @@ def main():
 
     # Get flagged emails and use ProofHandler to process them
     flagged_emails = email_manager.get_flagged_emails()
-    proof_handler = ProofHandler(None)  # Create an instance to use static methods
 
     # Process flagged emails if found
-    proof_handler.process_flagged_emails(flagged_emails)
-
-    # If no flagged emails, process the first email
-    if not flagged_emails:
+    if flagged_emails:
+        for email in flagged_emails:
+            proof_handler = ProofHandler(email)
+            proof_handler.print_message_info_with_links()
+    else:
+        # If no flagged emails, process the first email
         first_email = email_manager.get_first_email()
-        proof_handler.process_first_email(first_email)
+        if first_email:
+            proof_handler = ProofHandler(first_email)
+            proof_handler.print_message_info_with_links()
 
 if __name__ == "__main__":
     main()

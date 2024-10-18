@@ -1,4 +1,9 @@
+#proof_handler.py
 import re
+import requests
+from colorama import Fore, Style
+
+from email_handlers.link_verifier import LinkVerifier
 
 class ProofHandler:
     def __init__(self, email):
@@ -6,30 +11,47 @@ class ProofHandler:
 
     def get_subject(self):
         return self.email.Subject
-    
+
     def get_body(self):
         return self.email.Body
-    
+
     def get_links(self):
+        """Extract all links using a simple regex."""
         email_body = self.get_body()
-        links = re.findall(r'(https?://[^\s]+)', email_body)
+
+        # Simplified regex to find all HTTP/HTTPS links
+        links = re.findall(r'https?://[^\s\"\'<>]+', email_body)
+
+        # Strip any potential trailing whitespace or special characters
+        links = [link.strip() for link in links if link]
         return links
-    
+
+    def process_flagged_emails(self, flagged_emails):
+        """Process all flagged emails."""
+        for email in flagged_emails:
+            proof_handler = ProofHandler(email)
+            proof_handler.print_message_info_with_links()
+            
+    def process_first_email(self, email):
+        """Process the first email."""
+        proof_handler = ProofHandler(email)
+        proof_handler.print_message_info_with_links()
+
     def print_message_info(self):
         """Print the subject and body of the email."""
         print(f"Subject: {self.get_subject()}")
         print(f"Body: {self.get_body()}")
 
-    def process_flagged_emails(self, flagged_emails):
-        """Process the flagged emails if any are found."""
-        if len(flagged_emails) > 0:
-            first_flagged = flagged_emails[0]
-            print(f"Number of flagged emails: {len(flagged_emails)}")
-            ProofHandler(first_flagged).print_message_info()
+    def print_message_info_with_links(self):
+        """Print the email's subject, body, and link verification results."""
+        self.print_message_info()
+        links = self.get_links()
+        if links:
+            print("Links found in the email:")
+            for link in links:
+                print(link)
         else:
-            print("No flagged emails found.")
+            print("No links found in the email.")
 
-    def process_first_email(self, email):
-        """Process the first email if no flagged emails are found."""
-        print("Retrieving the first email.")
-        ProofHandler(email).print_message_info()
+        link_verifier = LinkVerifier(links)
+        link_verifier.print_link_verification_results()

@@ -19,7 +19,11 @@ class ProofHandler:
         """remove urls from the email body"""
         email_body = self.get_body()
         cleaned_body = re.sub(r'<https?://[^\s\"\'<>]+>', '', email_body)
-        return cleaned_body
+        # Split lines and remove the first line (preheader)
+        body_lines = cleaned_body.splitlines()
+        cleaned_body_without_preheader = "\n".join(body_lines[1:]).strip()
+        return cleaned_body_without_preheader
+
     
     def get_preheader(self):
         """Return the first line of the email body as the preheader."""
@@ -53,7 +57,7 @@ class ProofHandler:
         """Print the subject and body of the email."""
         print(f"Subject: {self.get_subject()}")
         print(f"Preheader: {self.get_preheader()}")
-        print(f"Body: {self.get_cleaned_body()}")
+        print(f"Body:\n {self.get_cleaned_body()}")
 
     def print_message_info_with_links(self):
         """Print the email's subject, body, and link verification results."""

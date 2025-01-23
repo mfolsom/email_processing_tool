@@ -14,6 +14,18 @@ class ProofHandler:
 
     def get_body(self):
         return self.email.Body
+    
+    def get_cleaned_body(self):
+        """remove urls from the email body"""
+        email_body = self.get_body()
+        cleaned_body = re.sub(r'<https?://[^\s\"\'<>]+>', '', email_body)
+        return cleaned_body
+    
+    def get_preheader(self):
+        """Return the first line of the email body as the preheader."""
+        email_body = self.get_body()
+        preheader = email_body.splitlines()[0] if email_body else ""
+        return preheader.strip()
 
     def get_links(self):
         """Extract all links using a simple regex."""
@@ -40,16 +52,14 @@ class ProofHandler:
     def print_message_info(self):
         """Print the subject and body of the email."""
         print(f"Subject: {self.get_subject()}")
-        print(f"Body: {self.get_body()}")
+        print(f"Body: {self.get_cleaned_body()}")
 
     def print_message_info_with_links(self):
         """Print the email's subject, body, and link verification results."""
         self.print_message_info()
         links = self.get_links()
         if links:
-            print("Links found in the email:")
-            for link in links:
-                print(link)
+            self.print_message_info()
         else:
             print("No links found in the email.")
 

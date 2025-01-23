@@ -52,6 +52,7 @@ class ProofHandler:
     def print_message_info(self):
         """Print the subject and body of the email."""
         print(f"Subject: {self.get_subject()}")
+        print(f"Preheader: {self.get_preheader()}")
         print(f"Body: {self.get_cleaned_body()}")
 
     def print_message_info_with_links(self):

@@ -57,7 +57,6 @@ class ProofHandler:
 
     def print_message_info_with_links(self):
         """Print the email's subject, body, and link verification results."""
-        self.print_message_info()
         links = self.get_links()
         if links:
             self.print_message_info()

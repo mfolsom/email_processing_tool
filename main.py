@@ -1,11 +1,20 @@
 from email_handlers.outlook_connector import OutlookConnector
 from email_handlers.email_manager import EmailManager
 from email_handlers.proof_handler import ProofHandler
+import os
+from dotenv import load_dotenv
+
+#load environment variables
+load_dotenv()
+
+#read environment variables
+folder_path_str = os.getenv("FOLDER_PATH")
+folder_path = folder_path_str.split(",")
 
 def main():
     # Initialize Outlook connection and folder navigation
     connector = OutlookConnector()
-    folder_path = ["Starbucks", "Proofs"]  # Path to the specific folder
+
     proofs_folder = connector.get_folder(folder_path)
 
     # Manage emails in the folder

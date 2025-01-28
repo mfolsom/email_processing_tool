@@ -25,12 +25,15 @@ Install the required packages using pip and the 'reqirements.txt' file.
 pip install -r requirements.txt
 ```
 ### 3. Set Up Environment Variables
-Create a '.env' file in the root directory of your project and set the FOLDER_PATH variable to specify the folder path in your Outlook account.
+Create a '.env' file in the root directory of your project and set the FOLDER_PATH variable to specify the folder path in your Outlook account. Currently the script can handle 2 levels of subdirectory under the inbox. 
 ```sh
 # .env
 FOLDER_PATH=Directory,Subdirectory 
 ```
-(e.g. Starbucks, Proofs)
+e.g. Starbucks, Proofs would look at this structure
+Inbox/
+├── Starbucks/
+│   ├──Proofs
 
 ### 4. Run the Unit Tests
 To run the tests, use pytest. Ensure you are in the virtual environment before running the tests.
@@ -46,8 +49,9 @@ To run the script and process the emails, execute the main.py file.
 python main.py
 ```
 After the script completes you will see the following output: 
-Email Subject, Preheader and Body
-Link Verification Results Counts and Detailed summary of invalid links and their corresponding redirects. 
+Email Subject, Preheader and Body (this is designed to be easy to copy into a tool like text-compare)
+
+Link Verification Results includes color coded Counts and color coded  Detailed summary of invalid links and their corresponding redirects. 
 
 ### Known Limitations
 The script will only process the latest flagged email in your inbox. If you have multiple flagged emails, the one with the most recent date will be processed. 

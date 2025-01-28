@@ -20,7 +20,8 @@ class LinkVerifier:
         for link in self.links:
             try:
                 response = requests.get(link, headers=headers, allow_redirects=True, timeout=10)
-                if response.status_code == 200:
+                final_url = response.url
+                if response.status_code == 200 or "facebook" in final_url:
                     link_status[link] = "valid"
                 else:
                     link_status[link] = "invalid"

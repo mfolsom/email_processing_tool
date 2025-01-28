@@ -84,7 +84,7 @@ email_processing/
 
 - **main.py**: The main script that initializes the Outlook connection, retrieves flagged emails, and processes them.
 - **email_handlers/**: Contains the modules for handling emails, connecting to Outlook, and verifying links.
-- **tests/**: Contains the test files for the project.
+- **tests/**: Contains the unit tests for the project.
 - **.env**: Environment variables file.
 - **requirements.txt**: Lists the dependencies required for the project.
 - **pytest.ini**: Configuration file for pytest.

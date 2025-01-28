@@ -31,10 +31,11 @@ Create a '.env' file in the root directory of your project and set the FOLDER_PA
 FOLDER_PATH=Directory,Subdirectory 
 ```
 e.g. Starbucks, Proofs would look at this structure
+```
 Inbox/
 ├── Starbucks/
 │   ├──Proofs
-
+```
 ### 4. Run the Unit Tests
 To run the tests, use pytest. Ensure you are in the virtual environment before running the tests.
 ```sh
@@ -59,7 +60,7 @@ The script will only process the latest flagged email in your inbox. If you have
 The script may occasionally flag links as invalid that are valid especially if there are complex redirects or authentication layers. Always double check the output by visiting the invalid links. 
 
 ### Project Structure
-
+```
 email_processing/
 ├── email_handlers/
 │   ├── __init__.py
@@ -78,7 +79,7 @@ email_processing/
 ├── pytest.ini
 ├── README.md
 └── requirements.txt
-
+```
 ### Detailed Explanation of Files
 
 - **main.py**: The main script that initializes the Outlook connection, retrieves flagged emails, and processes them.

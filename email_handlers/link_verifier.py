@@ -1,5 +1,6 @@
 from colorama import Fore, Style
 import requests
+from security import safe_requests
 
 class LinkVerifier:
     def __init__(self, links):
@@ -21,7 +22,7 @@ class LinkVerifier:
         }
         for link in self.links:
             try:
-                response = requests.get(link, headers=headers, allow_redirects=True, timeout=10)
+                response = safe_requests.get(link, headers=headers, allow_redirects=True, timeout=10)
                 final_url = response.url
                 final_urls[link] = final_url
                 if response.status_code == 200 or "facebook" in final_url:

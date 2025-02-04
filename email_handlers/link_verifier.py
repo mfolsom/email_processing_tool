@@ -15,7 +15,7 @@ class LinkVerifier:
     def verify_link_targets(self):
         link_status = {}  # Initialize link_status as an empty dictionary
         final_urls = {}  # Initialize final_urls as an empty dictionary
-        unreachable_links = {} # Initialize unreachable_links as an emapty dictionary
+        # unreachable_links = {} # Initialize unreachable_links as an emapty dictionary
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
         }
@@ -31,10 +31,10 @@ class LinkVerifier:
             except requests.RequestException as e:
                 print(f"Error verifying link {link}: {e}")  # Debugging line to see error details
                 link_status[link] = "unreachable"
-        return link_status, final_urls, unreachable_links
+        return link_status, final_urls
 
     def print_link_verification_results(self):
-        link_status, final_urls, unreachable_links = self.verify_link_targets()
+        link_status, final_urls = self.verify_link_targets()
         invalid_links = []
         unreachable_links = []
         """Print the verification results for all links with colored output."""
@@ -47,7 +47,7 @@ class LinkVerifier:
                 invalid_links.append((link, final_urls[link]))
             elif status == "unreachable":
                 print(Fore.YELLOW + f"Link: {link}, Status: {status}" + Style.RESET_ALL)
-                unreachable_links.append((link, unreachable_links[link]))
+                unreachable_links.append(link)
             else:
                 print(Fore.GREEN + "No links found!" + Style.RESET_ALL)
         print(Fore.LIGHTCYAN_EX + "============ Link Verification Results ============" + Style.RESET_ALL)
